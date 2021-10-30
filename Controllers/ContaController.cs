@@ -10,19 +10,29 @@ namespace Home.Controllers
         UsuarioService us = new UsuarioService();
         ContaService cs = new ContaService();
 
-        public IActionResult Resumo()
+        public IActionResult Resumo(int id)
         {
             Sessao.ChecaStatus(this);
 
             vc.LstUsuarios = us.Lista();
             vc.TotSaldo = cs.TotSaldo();
-            vc.TotReceita = cs.TotReceita();
+            vc.TotReceita = cs.TotReceita(id);
             vc.TotDespesas = cs.TotDespesas();
 
             return View(vc);
         }
 
-        public IActionResult Receita(int id = 0)
+        [HttpPost]
+        public ViewContas TotRec(int usr)
+        {
+            vc.TotSaldo = cs.TotSaldo(usr);
+            vc.TotReceita = cs.TotReceita(usr);
+            vc.TotDespesas = cs.TotDespesas(usr);
+
+            return vc;
+        }
+
+        public IActionResult Receita(int id)
         {
             Sessao.ChecaStatus(this);
 
@@ -34,7 +44,7 @@ namespace Home.Controllers
             return View(vc);
         }
 
-        public IActionResult Despesas(int id = 0)
+        public IActionResult Despesas(int id)
         {
             Sessao.ChecaStatus(this);
 

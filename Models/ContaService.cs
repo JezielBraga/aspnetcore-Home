@@ -103,64 +103,51 @@ namespace Home.Models
             }
         }
 
-        public double TotReceita(int id = 0)
+        /**************  TOTALIZADORES  **********/
+        public double TotSaldo(int usr = 0)
         {
             using (var context = new HomeContext())
             {
-                double total = 0;
-
-                List<Conta> lstConta = context.Contas
-                    .Where(c => c.Dest == 'r' && c.Quit == false)
-                    .ToList();
-
-                foreach (Conta c in lstConta)
-                {
-                    total += c.Valor;
-                }
-
-                return total;
-            }
-        }
-
-        public double TotDespesas()
-        {
-            using (var context = new HomeContext())
-            {
-                double total = 0;
-
-                List<Conta> lstConta = context.Contas
-                    .Where(c => c.Dest == 'd' && c.Quit == false)
-                    .ToList();
-
-                foreach (Conta c in lstConta)
-                {
-                    total += c.Valor;
-                }
-
-                return total;
-            }
-        }
-
-        public double TotSaldo()
-        {
-            using (var context = new HomeContext())
-            {
-                double saldo, receita = 0, despesas = 0;
+                double saldo = 0, receita = 0, despesas = 0;
 
                 //Totaliza Contas a Receber quitadas
-                List<Conta> lstContaR = context.Contas
-                    .Where(c => c.Dest == 'r' && c.Quit == true)
-                    .ToList();
+                List<Conta> lstContaR;
+
+                if (usr > 0)
+                {
+                    lstContaR = context.Contas
+                        .Where(c => c.Dest == 'r' && c.Quit == true && c.UsuarioId == usr)
+                        .ToList();
+                }
+
+                else
+                {
+                    lstContaR = context.Contas
+                        .Where(c => c.Dest == 'r' && c.Quit == true)
+                        .ToList();
+                }
 
                 foreach (Conta c in lstContaR)
                 {
                     receita += c.Valor;
                 }
-                
+
                 //Totaliza Contas a Pagar quitadas
-                List<Conta> lstContaP = context.Contas
-                    .Where(c => c.Dest == 'd' && c.Quit == true)
-                    .ToList();
+                List<Conta> lstContaP;
+
+                if (usr > 0)
+                {
+                    lstContaP = context.Contas
+                        .Where(c => c.Dest == 'd' && c.Quit == true && c.UsuarioId == usr)
+                        .ToList();
+                }
+
+                else
+                {
+                    lstContaP = context.Contas
+                        .Where(c => c.Dest == 'd' && c.Quit == true)
+                        .ToList();
+                }
 
                 foreach (Conta c in lstContaP)
                 {
@@ -172,5 +159,66 @@ namespace Home.Models
                 return saldo;
             }
         }
+
+        public double TotReceita(int usr = 0)
+        {
+            using (var context = new HomeContext())
+            {
+                double total = 0;
+                List<Conta> lstConta;
+
+                if (usr > 0)
+                {
+                    lstConta = context.Contas
+                        .Where(c => c.Dest == 'r' && c.Quit == false && c.UsuarioId == usr)
+                        .ToList();
+                }
+
+                else
+                {
+                    lstConta = context.Contas
+                        .Where(c => c.Dest == 'r' && c.Quit == false)
+                        .ToList();
+                }
+
+                foreach (Conta c in lstConta)
+                {
+                    total += c.Valor;
+                }
+
+                return total;
+            }
+        }
+
+        public double TotDespesas(int usr = 0)
+        {
+            using (var context = new HomeContext())
+            {
+                double total = 0;
+                List<Conta> lstConta;
+
+                if (usr > 0)
+                {
+                    lstConta = context.Contas
+                        .Where(c => c.Dest == 'd' && c.Quit == false && c.UsuarioId == usr)
+                        .ToList();
+                }
+
+                else
+                {
+                    lstConta = context.Contas
+                        .Where(c => c.Dest == 'd' && c.Quit == false)
+                        .ToList();
+                }
+
+                foreach (Conta c in lstConta)
+                {
+                    total += c.Valor;
+                }
+
+                return total;
+            }
+        }
+
     }
 }

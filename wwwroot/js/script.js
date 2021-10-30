@@ -59,6 +59,62 @@ if ($("#receita").val() != undefined &&
 }
 
 //EVENTOS
+if ($("#usr").val() != null) {
+    const $usrs = document.querySelector("#usr");
+
+    $usrs.addEventListener('change', (e) => {
+        e.preventDefault();
+
+        let id = $("#usr").serialize();
+        $.post('/conta/totrec', id, (resp) => {
+
+
+            console.log(resp);
+
+            //Atual
+            let atuP = resp.totSaldo;
+            let atuF = atuP.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $("#atualF").val(atuF);
+
+            //Receita
+            let recP = resp.totReceita;
+            let recF = recP.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $("#receitaF").val(recF);
+
+
+            //Despesas
+            let desP = resp.totDespesas;
+            let desF = desP.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $("#despesasF").val(desF);
+
+            //Saldo
+            let sal = atuP + recP - desP;
+            let salF = sal.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $("#saldoF").val(salF)
+
+
+
+            console.log(id)
+            console.log(recP);
+        })
+    })
+}
+
+
+
+
 $("#atualF").click(function () {
     //Atual
     $(this).val("");
