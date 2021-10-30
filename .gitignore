@@ -1,2 +1,5 @@
 .vscode
 Properties/launchSettings.json
+bin/Debug/net5.0/Properties/_launchSettings.json
+obj/Debug/net5.0/Home.csproj.AssemblyReference.cache
+obj/Debug/net5.0/Home.csproj.FileListAbsolute.txt

@@ -51,3 +51,4 @@
 /home/jeziel/WebApps/Projetos/Home/obj/Debug/net5.0/Razor/Views/_ViewStart.cshtml.g.cs
 /home/jeziel/WebApps/Projetos/Home/obj/Debug/net5.0/Home.csproj.CopyComplete
 /home/jeziel/WebApps/Projetos/Home/obj/Debug/net5.0/Home.genruntimeconfig.cache
+/home/jeziel/WebApps/Projetos/Home/bin/Debug/net5.0/Properties/_launchSettings.json
