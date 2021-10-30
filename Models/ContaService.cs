@@ -37,6 +37,7 @@ namespace Home.Models
                 cnt.Valor = c.Valor;
                 cnt.Venc = c.Venc;
                 cnt.Quit = c.Quit;
+                cnt.DataQuit = c.DataQuit;
 
                 context.SaveChanges();
             }
