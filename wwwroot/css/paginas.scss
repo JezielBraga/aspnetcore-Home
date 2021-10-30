@@ -1,0 +1,111 @@
+@import "variaveis";
+
+/*LOGIN*/
+#login {
+    & .icon {
+        height: 35px;
+        vertical-align: top;
+    }
+}
+
+/*PRINCIPAL*/
+#home {
+    & div {
+        padding: 5px 0;
+    }
+
+    & a.btn {
+        display: block;
+        width: 80vw;
+        border-left: 8px solid $cor3;
+        border-radius: 0 15px;
+        margin: auto;
+
+        &:hover {
+            position: relative;
+            left: 2px;
+        }
+    }
+}
+
+/*RESUMO*/
+#resumo {
+    & .sel {
+
+        & select {
+            width: max-content;
+            min-width: 150px;
+            color: #000;
+            font-weight: 900;
+            background-color: #fff;
+            border-radius: 5px;
+            border: none;
+        }
+    }
+
+    & .col > div {
+        width: max-content;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 5px auto;
+        box-shadow: $sombra;
+    }
+
+    & .tot {
+        background-color: $cor1;
+
+        & span {
+            display: block;
+        }
+    }
+
+    
+    & .rec {
+        background-color: #00f;
+    }
+    
+    & .des {
+        background-color: #f00;
+    }
+    
+    & .link:hover {
+        cursor: pointer;
+    }
+    
+    & span {
+        font-weight: 900;
+        color: #fff;
+        line-height: 30px;
+    }
+
+    & input {
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+    }
+}
+
+/*RECEITA**DESPESAS**DETALHES*/
+#receita,
+#despesas,
+#detalhes {
+    //Para input type:radio
+    & .col div {
+        display: inline-block;
+        margin: auto 15px;
+    }
+
+    & #dataQuit {
+        display: none;
+    }
+
+    & label {
+        width: 100%;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    & input {
+        width: 70%;
+    }
+}

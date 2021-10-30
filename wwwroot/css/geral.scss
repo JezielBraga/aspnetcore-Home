@@ -1,0 +1,135 @@
+@import "variaveis";
+
+* {
+    text-align: center;
+}
+
+body {
+    background-color: #eee;
+    background-image:
+        url(../imagens/casa.png);
+    background-size: cover;
+}
+
+.container-fluid {
+    align-self: center;
+}
+
+#mod-cad {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    padding: 0 15px;
+    background-color: #888c;
+    z-index: 1;
+
+    & section {
+        margin-top: 50vh;
+        transform: translateY(-50%);
+    }
+}
+
+h2 {
+    text-shadow: 2px 2px 3px $cor2;
+    font-weight: 900;
+}
+
+section {
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+
+    &.decorate {
+        width: max-content;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 7px 2px $cor2;
+    }
+}
+
+table {
+    width: 90%;
+    margin: 0 auto 10px;
+}
+
+th,
+td {
+    text-align: left;
+}
+
+.row {
+    padding: .25rem;
+}
+
+input {
+    text-align: left;
+}
+
+.btn-gp {
+    padding-bottom: 10px;
+}
+
+button.btn,
+a.btn {
+    min-width: 100px;
+    font-weight: 900;
+    color: #fff;
+    background-color: $cor2;
+
+    &:hover {
+        color: #fff;
+        box-shadow: $sombra;
+    }
+}
+
+a {
+    text-decoration: none;
+    font-weight: 900;
+    color: $cor1;
+
+    &:hover {
+        text-decoration: none;
+        color: $cor1;
+        text-shadow: $sombra;
+    }
+}
+
+.alt {
+    background-color: #00f;
+}
+
+.exc {
+    background-color: #f00;
+}
+
+/*HEDAER*/
+header {
+    height: 10vh;
+    color: #fff;
+    background-color: $cor1;
+    box-shadow: 0 5px 5px $cor2;
+
+    & a {
+        color: #fff;
+
+        &:hover {
+            color: #fff;
+            text-shadow: $sombra;
+        }
+    }
+}
+
+/*MAIN*/
+main {
+    min-height: 85vh;
+}
+
+/*FOOTER*/
+footer {
+    height: 5vh;
+    background-color: $cor1;
+    box-shadow: 0 -5px 5px $cor2;
+}

@@ -1,0 +1,39 @@
+@model Usuario
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<div class="container" id="usr-cadastro">
+    <section>
+        <h2><img class="icon" src="~/imagens/icones/casa.png" alt="Logo Casa"> Home</h2>
+        <form method="post">
+            <div class="row">
+                <div class="col">
+                    <input asp-for="Nome" placeholder="Nome" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input asp-for="Login" placeholder="Login" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input asp-for="Senha" type="password" placeholder="Senha" id="s1" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="password" placeholder="Confirme a Senha" id="s2">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn" type="submit">Salvar</button>
+                    <a class="btn" asp-controller="Sessao" asp-action="Login">Cancelar</a>
+                </div>
+            </div>
+            <input asp-for="Id" type="hidden">
+        </form>
+    </section>
+</div>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../wwwroot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../wwwroot/css/geral.css">
+    <link rel="stylesheet" href="../wwwroot/css/paginas.css">
+</head>
+
+<body>
+    <header>
+    </header>
+    <main class="d-flex">
+
+        <!--COMEÇA VIEWS-->
+        <div class="container-fluid align-self-center" id="resumo">
+            <section>
+                <div class="row">
+                    <div class="col">
+                        <div class="sel">
+                            <select name="usuario" id="usuario">
+                                <option value="">Usuários</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="tot">
+                            <span>Saldo Anterior</span>
+                            <input type="text" name="anterior" id="anterior">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="rec">
+                            <div class="link" id="rec pg">
+                                <span>Receita</span>
+                                <img src="/wwwroot/imagens/icones/circ-seta-dir.png" alt="seta" height="20">
+                            </div>
+                            <input type="hidden" asp-for=@Model.TotReceita id="receita">
+                            <input type="text" name="" id="receitaF" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="des">
+                            <div class="link" id="des pg">
+                                <span>Despesas</span>
+                                <img src="/wwwroot/imagens/icones/circ-seta-dir.png" alt="seta" height="20">
+                            </div>
+                            <input type="hidden" asp-for=@Model.TotDespesas id="despesas">
+                            <input type="text" name="" id="despesasF" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="tot">
+                            <span>Saldo Atual</span>
+                            <input type="text" name="saldo" id="saldoF" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-gp">
+                    <a class="btn" asp-controller="Home" asp-action="Principal">Voltar</a>
+                </div>
+            </section>
+        </div>
+        <!--TERMINA VIEWS-->
+
+    </main>
+    <footer>
+    </footer>
+
+    <script src="../wwwroot/js/jquery-3.6.0.min.js"></script>
+    <script src="../wwwroot/js/bootstrap.bundle.min.js"></script>
+    <script src="../wwwroot/js/script.js"></script>
+</body>
+
+</html>

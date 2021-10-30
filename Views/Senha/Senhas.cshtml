@@ -1,0 +1,64 @@
+@model ViewSenhas
+
+@{
+    ViewData["Title"] = "Senhas";
+}
+
+<div class="container-fluid">
+    <section id="lst-senhas">
+        <div>
+            <h2>Minhas Senhas</h2>
+        </div>
+        <div class="btn-gp">
+            <a asp-controller="Home" asp-action="Principal" class="btn">Voltar</a>
+            <button class="btn" id="in-cad">Adicionar</button>
+        </div>
+        <table class="table-striped">
+            @if (Model.LstSenhas.Count > 0)
+            {
+                foreach (Senha s in Model.LstSenhas)
+                {
+                    <tr class="row p-0 align-items-center">
+                        <th class="col">@s.Desc</th>
+                        <td class="col">@s.Valor</td>
+                        <td class="col-3">
+                            <a class="acao alt" href="Alterar?id=@s.Id">A</a>
+                            <a class="acao exc" href="Excluir?id=@s.Id">X</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+            else
+            {
+                <p>"Nenhuma senha por aqui ..."</p>
+            }
+        </table>
+    </section>
+    <!--------------------  MODAL DE CADASTRO  ------------------>
+    <div id="mod-cad">
+        <section class="decorate">
+            <h2>@ViewBag.CadEdit</h2>
+            <form asp-action="Cadastrar" method="post">
+                <div>
+                    <input type="hidden" asp-for="Senha.Id" id="senhaId">
+                    <input type="hidden" asp-for="Senha.UsuarioId" value=@Context.Session.GetInt32("id")>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input asp-for=Senha.Desc placeholder="Descrição" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input asp-for="Senha.Valor" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="btn-gp">
+                    <button type="button" class="btn" id="out-cad">Cancelar</button>
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

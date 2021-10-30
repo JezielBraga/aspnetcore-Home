@@ -1,0 +1,148 @@
+@model ViewContas
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<div class="container-fluid align-self-center" id="detalhes">
+    <section>
+        <h2>@Model.Conta.Desc</h2>
+        <table class="table-striped">
+            <tr class="row">
+                <th class="col-6">Valor: </th>
+                <td class="col valorF text-right">@Model.Conta.Valor</td>
+            </tr>
+            <tr class="row">
+                <th class="col-6">Vencimento: </th>
+                <td class="col text-right">@Model.Conta.Venc.ToShortDateString()</td>
+            </tr>
+            @if (Model.Conta.Quit == false)
+            {
+                <tr class="row">
+                    <th class="col-6">Situação: </th>
+                    <td class="col text-right">Aberta</td>
+                </tr>
+            }
+
+            else
+            {
+                if (Model.Conta.Dest == 'r')
+                {
+                    <tr class="row">
+                        <th class="col-6">Situação: </th>
+                        <td class="col text-right">Recebida</td>
+                    </tr>
+                    <tr class="row dataQuit">
+                        <th class="col-6">Recebida em: </th>
+                        <td class="col text-right">@Model.Conta.DataQuit.ToShortDateString()</td>
+                    </tr>
+                }
+
+                else
+                {
+                    <tr class="row">
+                        <th class="col-6">Situação: </th>
+                        <td class="col text-right">Paga</td>
+                    </tr>
+                    <tr class="row dataQuit">
+                        <th class="col-6">Paga em: </th>
+                        <td class="col text-right">@Model.Conta.DataQuit.ToShortDateString()</td>
+                    </tr>
+                }
+            }
+        </table>
+        <div class="btn-gp">
+            @if (Context.Session.GetString("pg") == "r")
+            {
+                <a asp-controller="Conta" asp-action="Receita" class="btn">Voltar</a>
+            }
+
+            else
+            {
+                <a asp-controller="Conta" asp-action="Despesas" class="btn">Voltar</a>
+            }
+            <button type="button" class="btn" id="in-cad">Alterar</button>
+        </div>
+    </section>
+    <!----------------------  MODAL DE ALTERAÇÃO  ------------------->
+    <div id="mod-cad">
+        <section class="decorate">
+            <h2>@ViewBag.CadEdit</h2>
+            <form asp-action="Cadastrar" method="post">
+                <div>
+                    <input type="hidden" asp-for="Conta.Id" id="contaId">
+                    <input type="hidden" asp-for="Conta.Dest" value="r">
+                    <input type="hidden" asp-for="Conta.UsuarioId" value=@Context.Session.GetInt32("id")>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input asp-for="Conta.Desc" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" asp-for="Conta.Valor" id="valor">
+                        <input type="text" id="valorF" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Conta.Venc">Data de Vencimento:</label>
+                        <input type="date" asp-for="Conta.Venc" required>
+                    </div>
+                </div>
+
+                @if (Model.Conta.Dest == 'r')
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <label for="aber">Aberta</label>
+                                <input type="radio" asp-for="Conta.Quit" value="false" id="aber" checked>
+                            </div>
+                            <div>
+                                <label for="quit">Recebida</label>
+                                <input type="radio" asp-for="Conta.Quit" value="true" id="quit">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="dataQuit">
+                        <div class="col">
+                            <label asp-for="Conta.DataQuit">Recebida em:</label>
+                            <input type="date" asp-for="Conta.DataQuit">
+                        </div>
+                    </div>
+                }
+
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <label for="aber">Aberta</label>
+                                <input type="radio" asp-for="Conta.Quit" value="false" id="aber" checked>
+                            </div>
+                            <div>
+                                <label for="quit">Paga</label>
+                                <input type="radio" asp-for="Conta.Quit" value="true" id="quit">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="dataQuit">
+                        <div class="col">
+                            <label asp-for="Conta.DataQuit">Paga em:</label>
+                            <input type="date" asp-for="Conta.DataQuit">
+                        </div>
+                    </div>
+                }
+
+                <div class="btn-gp">
+                    <a href="/Conta/Detalhes?id=@Model.Conta.Id" class="btn" id="out-cad">
+                        Cancelar
+                    </a>
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

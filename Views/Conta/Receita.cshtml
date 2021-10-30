@@ -1,0 +1,95 @@
+@model ViewContas
+
+@{
+    ViewData["Title"] = "Receita";
+    Context.Session.SetString("pg", "r");
+}
+
+<div class="container-fluid align-self-center" id="receita">
+    <section>
+        <h2>Contas a Receber</h2>
+        <div class="btn-gp">
+            <a asp-controller="Conta" asp-action="Resumo" class="btn">Voltar</a>
+            <button type="button" class="btn" id="in-cad">Adicionar</button>
+        </div>
+        <table class="table-striped">
+            @if (Model.LstContas.Count > 0)
+            {
+                @foreach (Conta c in Model.LstContas)
+                {
+                    <tr class="row">
+                        <th class="col-6"><a href="/Conta/Detalhes?id=@c.Id">@c.Desc</a></th>
+                        <td class="col-6 valorF text-right">@c.Valor</td>
+                        @if (c.Quit == false)
+                        {
+                            <td class="col-6">Vence em: </td>
+                            <td class="col-6 text-right">@c.Venc.ToShortDateString()</td>
+                        }
+                        else
+                        {
+                            <td class="col-6">Recebida em: </td>
+                            <td class="col-6 text-right">@c.DataQuit.ToShortDateString()</td>
+                        }
+                    </tr>
+                }
+            }
+
+            else
+            {
+                <p>"Nenhuma conta por aqui ..."</p>
+            }
+        </table>
+    </section>
+    <!----------------------  MODAL DE CADASTRO  ------------------->
+    <div id="mod-cad">
+        <section class="decorate">
+            <h2>@ViewBag.CadEdit</h2>
+            <form asp-action="Cadastrar" method="post">
+                <div>
+                    <input type="hidden" asp-for="Conta.Id" id="contaId">
+                    <input type="hidden" asp-for="Conta.Dest" value="r">
+                    <input type="hidden" asp-for="Conta.UsuarioId" value=@Context.Session.GetInt32("id")>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input asp-for="Conta.Desc" placeholder="Descrição" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="hidden" asp-for="Conta.Valor" id="valor">
+                        <input type="text" placeholder="Valor" id="valorF" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Conta.Venc">Data de Vencimento:</label>
+                        <input type="date" asp-for="Conta.Venc" placeholder="Vencimento" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <label for="aber">Aberta</label>
+                            <input type="radio" asp-for="Conta.Quit" value="false" id="aber" checked>
+                        </div>
+                        <div>
+                            <label for="quit">Recebida</label>
+                            <input type="radio" asp-for="Conta.Quit" value="true" id="quit">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="dataQuit">
+                    <div class="col">
+                        <label asp-for="Conta.DataQuit">Recebida em:</label>
+                        <input type="date" asp-for="Conta.DataQuit">
+                    </div>
+                </div>
+                <div class="btn-gp">
+                    <button type="button" class="btn" id="out-cad">Cancelar</button>
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

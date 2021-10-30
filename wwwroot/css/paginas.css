@@ -1,0 +1,108 @@
+/*LOGIN*/
+#login .icon {
+  height: 35px;
+  vertical-align: top;
+}
+
+/*PRINCIPAL*/
+#home div {
+  padding: 5px 0;
+}
+
+#home a.btn {
+  display: block;
+  width: 80vw;
+  border-left: 8px solid #E36A00;
+  border-radius: 0 15px;
+  margin: auto;
+}
+
+#home a.btn:hover {
+  position: relative;
+  left: 2px;
+}
+
+/*RESUMO*/
+#resumo .sel select {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  min-width: 150px;
+  color: #000;
+  font-weight: 900;
+  background-color: #fff;
+  border-radius: 5px;
+  border: none;
+}
+
+#resumo .col > div {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px auto;
+  -webkit-box-shadow: 0px 0px 5px 1px #888;
+          box-shadow: 0px 0px 5px 1px #888;
+}
+
+#resumo .tot {
+  background-color: #000;
+}
+
+#resumo .tot span {
+  display: block;
+}
+
+#resumo .rec {
+  background-color: #00f;
+}
+
+#resumo .des {
+  background-color: #f00;
+}
+
+#resumo .link:hover {
+  cursor: pointer;
+}
+
+#resumo span {
+  font-weight: 900;
+  color: #fff;
+  line-height: 30px;
+}
+
+#resumo input {
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+}
+
+/*RECEITA**DESPESAS**DETALHES*/
+#receita .col div,
+#despesas .col div,
+#detalhes .col div {
+  display: inline-block;
+  margin: auto 15px;
+}
+
+#receita #dataQuit,
+#despesas #dataQuit,
+#detalhes #dataQuit {
+  display: none;
+}
+
+#receita label,
+#despesas label,
+#detalhes label {
+  width: 100%;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+#receita input,
+#despesas input,
+#detalhes input {
+  width: 70%;
+}
+/*# sourceMappingURL=paginas.css.map */

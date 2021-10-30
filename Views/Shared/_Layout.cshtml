@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/geral.css">
+    <link rel="stylesheet" href="~/css/paginas.css">
+</head>
+
+<body>
+    <header class="d-flex">
+        @if (Context.Session.GetInt32("id") != null)
+        {
+            <div class="container-fluid align-self-center">
+                <div class="row justify-content-between">
+                    <div class="col-4">Olá, <a href="#">@Context.Session.GetString("nome")</a>!</div>
+                    <div class="col-3"><a href="/Sessao/Logout">Sair</a></div>
+                </div>
+            </div>
+        }
+    </header>
+    <main class="d-flex">
+        @RenderBody()
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/script.js"></script>
+</body>
+
+</html>

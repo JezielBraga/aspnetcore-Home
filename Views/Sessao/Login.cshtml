@@ -1,0 +1,33 @@
+@model Usuario;
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container-fluid" id="login">
+    <section class="decorate">
+        <h2><img class="icon" src="~/imagens/icones/casa.png" alt="Logo Casa"> Home</h2>
+        <span>@ViewBag.Msg</span>
+        <form asp-controller="Sessao" asp-action="Login" method="POST">
+            <div class="row">
+                <div class="col">
+                    <input asp-for="Login" placeholder="Login" required autofocus>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="password" asp-for="Senha" placeholder="Senha" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn" type="submit">Entre</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col">
+                <span>ou <a asp-controller="Usuario" asp-action="Cadastrar">Cadastre-se!</a></span>
+            </div>
+        </div>
+    </section>
+</div>

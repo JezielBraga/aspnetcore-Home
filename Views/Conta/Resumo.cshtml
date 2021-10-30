@@ -1,0 +1,65 @@
+@model ViewContas;
+
+@{
+    ViewData["Title"] = "Resumo";
+}
+
+<div class="container-fluid align-self-center" id="resumo">
+    <section>
+        <div class="row">
+            <div class="col">
+                <div class="sel">
+                    <select name="usuario" id="usuario">
+                        <option value="">Usuários</option>
+                        @foreach (Usuario u in Model.LstUsuarios)
+                        {
+                            <option value="@u.Id">@u.Nome</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="tot">
+                    <span>Saldo Atual</span>
+                    <input type="hidden" asp-for=@Model.TotSaldo id="atual">
+                    <input type="text" name="atualF" id="atualF">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="rec">
+                    <div class="link" id="recpg">
+                        <img src="~/imagens/icones/circ-seta-dir.png" alt="seta" height="20">
+                        <span>A Receber</span>
+                    </div>
+                    <input type="hidden" asp-for=@Model.TotReceita id="receita">
+                    <input type="text" name="receitaF" id="receitaF" readonly>
+                </div>
+            </div>
+            <div class="col">
+                <div class="des">
+                    <div class="link" id="despg">
+                        <img src="~/imagens/icones/circ-seta-dir.png" alt="seta" height="20">
+                        <span>A Pagar</span>
+                    </div>
+                    <input type="hidden" asp-for=@Model.TotDespesas id="despesas">
+                    <input type="text" name="despesasF" id="despesasF" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="tot">
+                    <span>Projeção</span>
+                    <input type="text" name="saldoF" id="saldoF" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="btn-gp">
+            <a class="btn" asp-controller="Home" asp-action="Principal">Voltar</a>
+        </div>
+    </section>
+</div>
