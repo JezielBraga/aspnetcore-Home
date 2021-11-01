@@ -172,7 +172,7 @@ namespace Home.Models
 
                 if (cnt.Venc.Year > 1)
                     result = result
-                        .Where(c => c.Venc < cnt.Venc);
+                        .Where(c => c.Venc <= cnt.Venc);
 
                 lstValor = result
                     .Select(c => c.Valor)
@@ -203,7 +203,7 @@ namespace Home.Models
 
                 if (cnt.Venc.Year > 1)
                     result = result
-                        .Where(c => c.Venc < cnt.Venc);
+                        .Where(c => c.Venc <= cnt.Venc);
 
                 lstValor = result
                     .Select(c => c.Valor)
