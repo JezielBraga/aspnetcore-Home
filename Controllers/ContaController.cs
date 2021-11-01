@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Home.Models;
+using System;
 using Microsoft.AspNetCore.Http;
 
 namespace Home.Controllers
@@ -10,24 +11,30 @@ namespace Home.Controllers
         UsuarioService us = new UsuarioService();
         ContaService cs = new ContaService();
 
-        public IActionResult Resumo(int id)
+        public IActionResult Resumo()
         {
             Sessao.ChecaStatus(this);
 
+            Conta c = new Conta();
+
             vc.LstUsuarios = us.Lista();
             vc.TotSaldo = cs.TotSaldo();
-            vc.TotReceita = cs.TotReceita(id);
-            vc.TotDespesas = cs.TotDespesas();
+            vc.TotReceita = cs.TotReceita(c);
+            vc.TotDespesas = cs.TotDespesas(c);
 
             return View(vc);
         }
 
         [HttpPost]
-        public ViewContas TotRec(int usr)
+        public ViewContas Filtro(int usrId, DateTime dataVenc)
         {
-            vc.TotSaldo = cs.TotSaldo(usr);
-            vc.TotReceita = cs.TotReceita(usr);
-            vc.TotDespesas = cs.TotDespesas(usr);
+            Conta c = new Conta();
+            c.UsuarioId = usrId;
+            c.Venc = dataVenc;
+
+            vc.TotSaldo = cs.TotSaldo(usrId);
+            vc.TotReceita = cs.TotReceita(c);
+            vc.TotDespesas = cs.TotDespesas(c);
 
             return vc;
         }

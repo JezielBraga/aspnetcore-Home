@@ -1,10 +1,12 @@
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace Home.Models
 {
     public class ContaService
     {
+        /**************  AÇÕES  ***********/
         public int Cadastra(Conta c)
         {
             using (var context = new HomeContext())
@@ -54,7 +56,7 @@ namespace Home.Models
             }
         }
 
-        //TOTALIZADORES
+        /**************  LISTAS  ************/
         public List<Conta> LstReceita(int id)
         {
             using (var context = new HomeContext())
@@ -111,47 +113,41 @@ namespace Home.Models
                 double saldo = 0, receita = 0, despesas = 0;
 
                 //Totaliza Contas a Receber quitadas
-                List<Conta> lstContaR;
+                List<double> lstValorR;
 
+                var resultR = context.Contas
+                    .Where(c => c.Dest == 'r' && c.Quit == true);
+                
                 if (usr > 0)
-                {
-                    lstContaR = context.Contas
-                        .Where(c => c.Dest == 'r' && c.Quit == true && c.UsuarioId == usr)
-                        .ToList();
-                }
+                    resultR = resultR
+                        .Where(c => c.UsuarioId == usr);
+                
+                lstValorR = resultR
+                    .Select(c => c.Valor)
+                    .ToList();
 
-                else
+                foreach (var valor in lstValorR)
                 {
-                    lstContaR = context.Contas
-                        .Where(c => c.Dest == 'r' && c.Quit == true)
-                        .ToList();
-                }
-
-                foreach (Conta c in lstContaR)
-                {
-                    receita += c.Valor;
+                    receita += valor;
                 }
 
                 //Totaliza Contas a Pagar quitadas
-                List<Conta> lstContaP;
+                List<double> lstValorP;
 
+                var resultP = context.Contas
+                    .Where(c => c.Dest == 'd' && c.Quit == true);
+                
                 if (usr > 0)
-                {
-                    lstContaP = context.Contas
-                        .Where(c => c.Dest == 'd' && c.Quit == true && c.UsuarioId == usr)
-                        .ToList();
-                }
+                    resultP = resultP
+                        .Where(c => c.UsuarioId == usr);
+                
+                lstValorP = resultP
+                    .Select(c => c.Valor)
+                    .ToList();
 
-                else
+                foreach (var valor in lstValorP)
                 {
-                    lstContaP = context.Contas
-                        .Where(c => c.Dest == 'd' && c.Quit == true)
-                        .ToList();
-                }
-
-                foreach (Conta c in lstContaP)
-                {
-                    despesas += c.Valor;
+                    despesas += valor;
                 }
 
                 saldo = receita - despesas;
@@ -159,63 +155,65 @@ namespace Home.Models
                 return saldo;
             }
         }
-
-        public double TotReceita(int usr = 0)
+        
+        public double TotReceita(Conta cnt)
         {
             using (var context = new HomeContext())
             {
                 double total = 0;
-                List<Conta> lstConta;
+                List<double> lstValor;
+                
+                var result = context.Contas
+                    .Where(c => c.Dest == 'r' && c.Quit == false);
 
-                if (usr > 0)
+                if (cnt.UsuarioId > 0)
+                    result = result
+                        .Where(c => c.UsuarioId == cnt.UsuarioId);
+
+                if (cnt.Venc.Year > 1)
+                    result = result
+                        .Where(c => c.Venc < cnt.Venc);
+
+                lstValor = result
+                    .Select(c => c.Valor)
+                    .ToList();
+
+                foreach (var valor in lstValor)
                 {
-                    lstConta = context.Contas
-                        .Where(c => c.Dest == 'r' && c.Quit == false && c.UsuarioId == usr)
-                        .ToList();
+                    total += valor;
                 }
-
-                else
-                {
-                    lstConta = context.Contas
-                        .Where(c => c.Dest == 'r' && c.Quit == false)
-                        .ToList();
-                }
-
-                foreach (Conta c in lstConta)
-                {
-                    total += c.Valor;
-                }
-
+                
                 return total;
             }
         }
 
-        public double TotDespesas(int usr = 0)
+        public double TotDespesas(Conta cnt)
         {
             using (var context = new HomeContext())
             {
                 double total = 0;
-                List<Conta> lstConta;
+                List<double> lstValor;
+                
+                var result = context.Contas
+                    .Where(c => c.Dest == 'd' && c.Quit == false);
 
-                if (usr > 0)
+                if (cnt.UsuarioId > 0)
+                    result = result
+                        .Where(c => c.UsuarioId == cnt.UsuarioId);
+
+                if (cnt.Venc.Year > 1)
+                    result = result
+                        .Where(c => c.Venc < cnt.Venc);
+
+                lstValor = result
+                    .Select(c => c.Valor)
+                    .ToList();
+
+                foreach (var valor in lstValor)
                 {
-                    lstConta = context.Contas
-                        .Where(c => c.Dest == 'd' && c.Quit == false && c.UsuarioId == usr)
-                        .ToList();
+                    total += valor;
                 }
-
-                else
-                {
-                    lstConta = context.Contas
-                        .Where(c => c.Dest == 'd' && c.Quit == false)
-                        .ToList();
-                }
-
-                foreach (Conta c in lstConta)
-                {
-                    total += c.Valor;
-                }
-
+                
                 return total;
             }
         }

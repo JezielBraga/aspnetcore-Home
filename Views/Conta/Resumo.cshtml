@@ -6,19 +6,29 @@
 
 <div class="container-fluid align-self-center" id="resumo">
     <section>
-        <div class="row">
-            <div class="col">
-                <div class="sel">
-                    <select name="usr" id="usr">
-                        <option value="">Usuários</option>
-                        @foreach (Usuario u in Model.LstUsuarios)
-                        {
-                            <option value="@u.Id">@u.Nome</option>
-                        }
-                    </select>
+        <form action="" id="filtro">
+            <fieldset>
+                <legend>Filtro:</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="usrId">Usuario: </label>
+                        <select name="usrId" id="usrId">
+                            <option value="">Todos</option>
+                            @foreach (Usuario u in Model.LstUsuarios)
+                            {
+                                <option value="@u.Id">@u.Nome</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="dataVenc">Vencimento: </label>
+                        <input type="date" name="dataVenc" id="dataVenc">
+                    </div>
                 </div>
-            </div>
-        </div>
+            </fieldset>
+        </form>
+    </section>
+    <section>
         <div class="row">
             <div class="col">
                 <div class="tot">

@@ -18,8 +18,8 @@ $(".exc").click(function () {
 
 /***********************  RESUMO  ******************/
 //MOEDAS
-if ($("#receita").val() != undefined &&
-    $("#despesas").val() != undefined) {
+if ($("#receita").val() != undefined
+    && $("#despesas").val() != undefined) {
 
     //Atual
     let atu = $("#atual").val().replace(",", ".");
@@ -59,20 +59,24 @@ if ($("#receita").val() != undefined &&
 }
 
 //EVENTOS
-if ($("#usr").val() != null) {
-    const $usrs = document.querySelector("#usr");
+if ($("#usrId").val() != undefined
+    && $("#dataVenc").val() != undefined) {
 
-    $usrs.addEventListener('change', (e) => {
+    const $usrId = $("#usrId");
+    const $dataVenc = $("#dataVenc");
+
+    $usrId.on('change', Refina);
+    $dataVenc.on('change', Refina);
+
+    function Refina(e) {
+
         e.preventDefault();
 
-        let id = $("#usr").serialize();
-        $.post('/conta/totrec', id, (resp) => {
-
-
-            console.log(resp);
+        let filtro = $("#filtro").serialize();
+        $.post('/conta/filtro', filtro, (result) => {
 
             //Atual
-            let atuP = resp.totSaldo;
+            let atuP = result.totSaldo;
             let atuF = atuP.toLocaleString("pt-BR", {
                 style: "currency", currency: "BRL"
             });
@@ -80,16 +84,15 @@ if ($("#usr").val() != null) {
             $("#atualF").val(atuF);
 
             //Receita
-            let recP = resp.totReceita;
+            let recP = result.totReceita;
             let recF = recP.toLocaleString("pt-BR", {
                 style: "currency", currency: "BRL"
             });
 
             $("#receitaF").val(recF);
 
-
             //Despesas
-            let desP = resp.totDespesas;
+            let desP = result.totDespesas;
             let desF = desP.toLocaleString("pt-BR", {
                 style: "currency", currency: "BRL"
             });
@@ -103,17 +106,9 @@ if ($("#usr").val() != null) {
             });
 
             $("#saldoF").val(salF)
-
-
-
-            console.log(id)
-            console.log(recP);
         })
-    })
+    }
 }
-
-
-
 
 $("#atualF").click(function () {
     //Atual
