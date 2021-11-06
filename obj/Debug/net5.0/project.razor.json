@@ -1,5 +1,5 @@
 {
-  "FilePath": "/home/jeziel/WebApps/Projetos/Home/Home.csproj",
+  "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Home.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15619,58 +15619,58 @@
   "RootNamespace": "Home",
   "Documents": [
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Conta/Resumo.cshtml",
+      "TargetPath": "Resumo.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Home/Principal.cshtml",
-      "TargetPath": "Views\\Home\\Principal.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Usuario/Cadastrar.cshtml",
+      "TargetPath": "Cadastrar.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Conta/Resumo.cshtml",
-      "TargetPath": "Views\\Conta\\Resumo.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Senha/Senhas.cshtml",
+      "TargetPath": "Senhas.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Senha/Senhas.cshtml",
-      "TargetPath": "Views\\Senha\\Senhas.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Conta/Detalhes.cshtml",
+      "TargetPath": "Detalhes.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Conta/Receita.cshtml",
-      "TargetPath": "Views\\Conta\\Receita.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/_ViewImports.cshtml",
+      "TargetPath": "_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Conta/Detalhes.cshtml",
-      "TargetPath": "Views\\Conta\\Detalhes.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Sessao/Login.cshtml",
+      "TargetPath": "Login.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Conta/Despesas.cshtml",
-      "TargetPath": "Views\\Conta\\Despesas.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Conta/Despesas.cshtml",
+      "TargetPath": "Despesas.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/_ViewImports.cshtml",
-      "TargetPath": "Views\\_ViewImports.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/_ViewStart.cshtml",
+      "TargetPath": "_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Shared/_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Shared/_Layout.cshtml",
+      "TargetPath": "_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Sessao/Login.cshtml",
-      "TargetPath": "Views\\Sessao\\Login.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Home/Principal.cshtml",
+      "TargetPath": "Principal.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/home/jeziel/WebApps/Projetos/Home/Views/Usuario/Cadastrar.cshtml",
-      "TargetPath": "Views\\Usuario\\Cadastrar.cshtml",
+      "FilePath": "/home/jeziel/Área de Trabalho/WebApps/Projetos/Home/Views/Conta/Receita.cshtml",
+      "TargetPath": "Receita.cshtml",
       "FileKind": "mvc"
     }
   ],
