@@ -30,19 +30,6 @@
 
 /*RESUMO*/
 #resumo {
-    & .sel {
-
-        & select {
-            width: max-content;
-            min-width: 150px;
-            color: #000;
-            font-weight: 900;
-            background-color: #fff;
-            border-radius: 5px;
-            border: none;
-        }
-    }
-
     & .col > div {
         width: max-content;
         padding: 5px;
@@ -59,7 +46,6 @@
         }
     }
 
-    
     & .rec {
         background-color: #00f;
     }
@@ -105,7 +91,7 @@
         margin-bottom: 0;
     }
 
-    & input {
+    & #mod-cad input {
         width: 70%;
     }
 }

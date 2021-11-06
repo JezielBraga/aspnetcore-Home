@@ -39,15 +39,31 @@ h2 {
 
 section {
     width: 100%;
-    padding: 10px;
     margin: auto;
-
+    
     &.decorate {
         width: max-content;
         background-color: #fff;
+        padding: 10px;
         border-radius: 5px;
         box-shadow: 0px 0px 7px 2px $cor2;
     }
+}
+
+label {
+    display: block;
+    margin-bottom: 0;
+}
+
+#usrId,
+#dataVenc {
+    width: max-content;
+    color: #000;
+    font-weight: 900;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+    border: none;
 }
 
 table {
@@ -103,6 +119,10 @@ a {
 
 .exc {
     background-color: #f00;
+}
+
+.hides {
+    display: none;
 }
 
 /*HEDAER*/
