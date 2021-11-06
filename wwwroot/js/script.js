@@ -1,26 +1,8 @@
-//Exibe Cadastros
-$("#in-cad").click(function () {
-    $("#mod-cad").css("display", "block");
-});
 
-if ($("#senhaId").val() > 0)
-    $("#mod-cad").css("display", "block");
+/*************************  RESUMO  **********************/
+if ($("#resumo").val() === "") {
 
-$("#out-cad").click(function () {
-    $("#mod-cad").css("display", "none");
-});
-
-//Confirma exclusão de item
-$(".exc").click(function () {
-    return confirm("Deseja realmente excluir isso?");
-});
-
-
-/***********************  RESUMO  ******************/
-//MOEDAS
-if ($("#receita").val() != undefined
-    && $("#despesas").val() != undefined) {
-
+    //MOEDAS
     //Atual
     let atu = $("#atual").val().replace(",", ".");
     let atuP = parseFloat(atu);
@@ -39,7 +21,6 @@ if ($("#receita").val() != undefined
 
     $("#receitaF").val(recF);
 
-
     //Despesas
     let des = $("#despesas").val().replace(",", ".");
     let desP = parseFloat(des);
@@ -55,23 +36,174 @@ if ($("#receita").val() != undefined
         style: "currency", currency: "BRL"
     });
 
-    $("#saldoF").val(salF)
+    $("#saldoF").val(salF);
+
+    //EVENTOS
+    //Atual
+    $("#atualF").click(function () {
+        $(this).val("");
+    });
+
+    $("#atualF").blur(function () {
+        //Atual
+        let atuIn = ($(this).val() == "")
+            ? "0" : $(this).val();
+
+        let atuInN = atuIn.replace(",", ".");
+        let atuN = $("#atual").val().replace(",", ".");
+        let atuP = parseFloat(atuInN) + parseFloat(atuN);
+        let atuF = atuP.toLocaleString("pt-BR", {
+            style: "currency", currency: "BRL"
+        });
+
+        $(this).val(atuF);
+
+        //Receita
+        let rec = $("#receita").val().replace(",", ".");
+        let recP = parseFloat(rec);
+        let recF = recP.toLocaleString("pt-BR", {
+            style: "currency", currency: "BRL"
+        });
+
+        $("#receitaF").val(recF);
+
+        //Despesas
+        let des = $("#despesas").val().replace(",", ".");
+        let desP = parseFloat(des);
+        let desF = desP.toLocaleString("pt-BR", {
+            style: "currency", currency: "BRL"
+        });
+
+        $("#despesasF").val(desF);
+
+        //Saldo
+        let salP = atuP + recP - desP;
+        let salF = salP.toLocaleString("pt-BR", {
+            style: "currency", currency: "BRL"
+        });
+
+        $("#saldoF").val(salF)
+    })
+
+    //NAVEGAÇÃO
+    $("#recpg").click(() => {
+        window.location = "/Conta/Receita";
+    });
+
+    $("#despg").click(() => {
+        window.location = "/Conta/Despesas";
+    });
 }
 
+/************************* DETALHES **********************/
+if ($("#detalhes").val() === "") {
+
+    //Em Alteração
+    if ($("#senhaId").val() > 0)
+        $("#mod-cad").css("display", "block");
+
+    if ($("#quit").is(":checked"))
+        $("#dataQuit").css("display", "block");
+
+    //EVENTOS
+    //Em Alteração
+    $("#valorF").click(function () {
+        let val = $("#valor").val().replace(".", ",");
+        $(this).val(val);
+    });
+
+    $("#valorF").blur(function () {
+        if ($(this).val() != "") {
+            $("#valor").val($("#valorF").val());
+
+            let val = $("#valorF").val().replace(",", ".");
+            let valP = parseFloat(val);
+            let valF = valP.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $(this).val(valF);
+
+        } else {
+            let val = $("#valor").val().replace(",", ".");
+            let valP = parseFloat(val);
+            let valF = valP.toLocaleString("pt-BR", {
+                style: "currency", currency: "BRL"
+            });
+
+            $(this).val(valF);
+        }
+    });
+}
+
+/***********************  GLOBAL  ************************/
+//Converte em Moeda
+$(".valorF").each(paraMoeda);
+$("#valor").each(paraMoeda);
+
+//Aplica filtro
+$("#usrId").on('change', Refina);
+$("#dataVenc").on('change', Refina);
+
 //EVENTOS
-if ($("#usrId").val() != undefined
-    && $("#dataVenc").val() != undefined) {
+//Exibe Cadastro-Alteração
+$("#in-cad").click(() => {
+    $("#mod-cad").css("display", "block");
+});
 
-    const $usrId = $("#usrId");
-    const $dataVenc = $("#dataVenc");
+//Oculta Cadastro-Alteração
+$("#out-cad").click(() => {
+    $("#mod-cad").css("display", "none");
+});
 
-    $usrId.on('change', Refina);
-    $dataVenc.on('change', Refina);
+//Exibe Input Data de Quitação
+$("#quit").click(() => {
+    $("#dataQuit").css("display", "block");
+});
 
-    function Refina(e) {
+//Oculta Input Data de Quitação
+$("#aber").click(() => {
+    $("#dataQuit").css("display", "none");
+});
 
-        e.preventDefault();
+/*$("#out-cad").click(() => {
+    $("#receita input").val("");
+});*/
 
+//Confirma exclusão de item
+$(".exc").click(() => {
+    return confirm("Deseja realmente excluir isso?");
+});
+
+//FUNÇÕES
+//Formata Moeda
+function paraMoeda() {
+
+    //Na lista e em Detalhes
+    let val = $(this).html().replace(",", ".");
+    let valP = parseFloat(val);
+    let valF = valP.toLocaleString("pt-BR", {
+        style: "currency", currency: "BRL"
+    });
+
+    $(this).html(valF);
+
+    //Na Alteração
+    if ($("#valor").val() != undefined) {
+        let val = $(this).val().replace(",", ".");
+        let valP = parseFloat(val);
+        let valF = valP.toLocaleString("pt-BR", {
+            style: "currency", currency: "BRL"
+        });
+
+        $("#valorF").val(valF);
+    }
+}
+
+//Refina pesquisa
+function Refina() {
+
+    if ($("#resumo").val() === "") {
         let filtro = $("#filtro").serialize();
         $.post('/conta/filtro', filtro, (result) => {
 
@@ -105,130 +237,49 @@ if ($("#usrId").val() != undefined
                 style: "currency", currency: "BRL"
             });
 
-            $("#saldoF").val(salF)
+            $("#saldoF").val(salF);
         })
+
+    } else {
+        $(".usr").each(testaUsuario);
+        $(".data").each(testaData);
     }
 }
 
-$("#atualF").click(function () {
-    //Atual
-    $(this).val("");
-});
+function testaUsuario() {
+    let parent = this.closest(".conta");
+    let usr = $("#usrId").val();
 
-$("#atualF").blur(function () {
-    //Atual
-    let atuIn = ($(this).val() == "")
-        ? "0" : $(this).val();
-
-    let atuInN = atuIn.replace(",", ".");
-    let atuN = $("#atual").val().replace(",", ".");
-    let atuP = parseFloat(atuInN) + parseFloat(atuN);
-    let atuF = atuP.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL"
-    });
-
-    $(this).val(atuF);
-
-    //Receita
-    let rec = $("#receita").val().replace(",", ".");
-    let recP = parseFloat(rec);
-    let recF = recP.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL"
-    });
-
-    $("#receitaF").val(recF);
-
-    //Despesas
-    let des = $("#despesas").val().replace(",", ".");
-    let desP = parseFloat(des);
-    let desF = desP.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL"
-    });
-
-    $("#despesasF").val(desF);
-
-    //Saldo
-    let salP = atuP + recP - desP;
-    let salF = salP.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL"
-    });
-
-    $("#saldoF").val(salF)
-})
-
-//NAVEGAÇÃO
-$("#recpg").click(function () {
-    window.location = "/Conta/Receita";
-});
-
-$("#despg").click(function () {
-    window.location = "/Conta/Despesas";
-});
-
-/***************  RECEITA & DESPESAS  **************/
-//MOEDAS
-//Listas e Detalhes
-$(".valorF").each(function () {
-    let val = $(this).html().replace(",", ".");
-    let valP = parseFloat(val);
-    let valF = valP.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL"
-    });
-
-    $(this).html(valF);
-});
-
-//Na Alteração
-let val = $("#valor").val().replace(",", ".");
-let valP = parseFloat(val);
-let valF = valP.toLocaleString("pt-BR", {
-    style: "currency", currency: "BRL"
-});
-
-if (valP > 0)
-    $("#valorF").val(valF);
-
-//EVENTOS
-//No cadastro e Alteração
-$("#valorF").click(function () {
-    $(this).val("");
-});
-
-$("#valorF").blur(function () {
-    if ($(this).val() != "") {
-        let val = $(this).val();
-
-        $("#valor").val(val);
-
-        let valP = parseFloat(val.replace(",", "."));
-        let valF = valP.toLocaleString("pt-BR", {
-            style: "currency", currency: "BRL"
-        });
-
-        $(this).val(valF);
+    if (usr > 0) {
+        if (this.value != usr) {
+            //parent.classList.add("d-none");
+            parent.classList.add("hides");
+        } else {
+            //parent.classList.remove("d-none");
+            parent.classList.remove("hides");
+        }
     } else {
-        let val = parseFloat($("#valor").val());
-        let valF = val.toLocaleString("pt-BR", {
-            style: "currency", currency: "BRL"
-        });
-
-        $("#valorF").val(valF);
+        parent.classList.remove("hides");
     }
-});
+}
 
-if ($("#quit").is(":checked"))
-    $("#dataQuit").css("display", "block");
+function testaData() {
+    let strData = this.value;
+    let day = strData[0] + strData[1];
+    let month = strData[3] + strData[4];
+    let year =
+        strData[6] + strData[7] + strData[8] + strData[9];
 
-$("#quit").click(function () {
-    $("#dataQuit").css("display", "block");
-});
+    let dataCont = new Date(year, (month - 1), day);
+    let dataInfo = new Date($("#dataVenc").val());
 
-$("#aber").click(function () {
-    $("#dataQuit").css("display", "none");
-});
+    dataInfo.setHours(dataInfo.getHours() + 3);
 
-$("#out-cad").on("click", function () {
-    $("#receita input").val("");
-});
+    let parent = this.closest(".conta");
 
-/**********************  DETALHES  *****************/
+    if (dataCont > dataInfo) {
+        parent.classList.add("d-none");
+    } else {
+        parent.classList.remove("d-none");
+    }
+}
