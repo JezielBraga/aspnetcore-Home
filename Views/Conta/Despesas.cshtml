@@ -12,14 +12,37 @@
             <a asp-controller="Conta" asp-action="Resumo" class="btn">Voltar</a>
             <button type="button" class="btn" id="in-cad">Adicionar</button>
         </div>
+    </section>
+    <section id="filtro">
+        <div class="row">
+            <div class="col">
+                <label for="usrId">Usuario: </label>
+                <select name="usrId" id="usrId">
+                    <option value="">Todos</option>
+                    @foreach (Usuario u in Model.LstUsuarios)
+                    {
+                        <option value="@u.Id">@u.Nome</option>
+                    }
+                </select>
+            </div>
+            <div class="col">
+                <label for="dataVenc">Vencimento: </label>
+                <input type="date" name="dataVenc" id="dataVenc">
+            </div>
+        </div>
+    </section>
+    <section>
         <table class="table-striped">
-            @if (Model.LstContas.Count > 0)
+            @if (Model.LstContasD.Count > 0)
             {
-                @foreach (Conta c in Model.LstContas)
+                @foreach (Conta c in Model.LstContasD)
                 {
-                    <tr class="row">
-                        <th class="col-6"><a href="/Conta/Detalhes?id=@c.Id">@c.Desc</a></th>
-                        <td class="col-6 valorF text-right">@c.Valor</td>
+                    <tr class="row conta">
+                        <input type="hidden" class="usr" asp-for="@c.UsuarioId">
+                        <input type="hidden" class="data" asp-for="@c.Venc">
+                        <th class="col-8"><a href="/Conta/Detalhes?id=@c.Id">@c.Desc</a></th>
+                        <td class="col-4 valorF text-right">@c.Valor</td>
+
                         @if (c.Quit == false)
                         {
                             <td class="col-6">Vence em: </td>
@@ -30,6 +53,7 @@
                             <td class="col-6">Paga em: </td>
                             <td class="col-6 text-right">@c.DataQuit.ToShortDateString()</td>
                         }
+
                     </tr>
                 }
             }

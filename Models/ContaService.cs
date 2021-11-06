@@ -57,49 +57,48 @@ namespace Home.Models
         }
 
         /**************  LISTAS  ************/
-        public List<Conta> LstReceita(int id)
+        public List<Conta> LstReceita(Conta cnt)
         {
             using (var context = new HomeContext())
             {
                 List<Conta> lstContas;
 
-                if (id > 0)
-                {
-                    lstContas = context.Contas
-                        .Where(c => c.Dest == 'r' && c.UsuarioId == id)
-                        .ToList();
-                }
+                var result = context.Contas
+                        .Where(c => c.Dest == 'r');
 
-                else
-                {
-                    lstContas = context.Contas
-                        .Where(c => c.Dest == 'r')
-                        .ToList();
-                }
+                if (cnt.UsuarioId > 0)
+                    result = result
+                        .Where(c => c.UsuarioId == cnt.UsuarioId);
+
+                if (cnt.Venc.Year > 1)
+                    result = result
+                        .Where(c => c.Venc <= cnt.Venc);
+
+                lstContas = result.ToList();
 
                 return lstContas;
             }
         }
 
-        public List<Conta> LstDespesas(int id)
+        public List<Conta> LstDespesas()
         {
             using (var context = new HomeContext())
             {
                 List<Conta> lstContas;
 
-                if (id > 0)
-                {
-                    lstContas = context.Contas
-                        .Where(c => c.Dest == 'd' && c.UsuarioId == id)
-                        .ToList();
-                }
-
-                else
-                {
-                    lstContas = context.Contas
+                var result = context.Contas
                         .Where(c => c.Dest == 'd')
-                        .ToList();
-                }
+                        .OrderBy(c => c.Venc);
+                
+                /*if (cnt.UsuarioId > 0)
+                    result = result
+                        .Where(c => c.UsuarioId == cnt.UsuarioId);
+
+                if (cnt.Venc.Year > 1)
+                    result = result
+                        .Where(c => c.Venc <= cnt.Venc);*/
+
+                lstContas = result.ToList();
 
                 return lstContas;
             }
@@ -117,11 +116,11 @@ namespace Home.Models
 
                 var resultR = context.Contas
                     .Where(c => c.Dest == 'r' && c.Quit == true);
-                
+
                 if (usr > 0)
                     resultR = resultR
                         .Where(c => c.UsuarioId == usr);
-                
+
                 lstValorR = resultR
                     .Select(c => c.Valor)
                     .ToList();
@@ -136,11 +135,11 @@ namespace Home.Models
 
                 var resultP = context.Contas
                     .Where(c => c.Dest == 'd' && c.Quit == true);
-                
+
                 if (usr > 0)
                     resultP = resultP
                         .Where(c => c.UsuarioId == usr);
-                
+
                 lstValorP = resultP
                     .Select(c => c.Valor)
                     .ToList();
@@ -155,14 +154,14 @@ namespace Home.Models
                 return saldo;
             }
         }
-        
+
         public double TotReceita(Conta cnt)
         {
             using (var context = new HomeContext())
             {
                 double total = 0;
                 List<double> lstValor;
-                
+
                 var result = context.Contas
                     .Where(c => c.Dest == 'r' && c.Quit == false);
 
@@ -182,7 +181,7 @@ namespace Home.Models
                 {
                     total += valor;
                 }
-                
+
                 return total;
             }
         }
@@ -193,7 +192,7 @@ namespace Home.Models
             {
                 double total = 0;
                 List<double> lstValor;
-                
+
                 var result = context.Contas
                     .Where(c => c.Dest == 'd' && c.Quit == false);
 
@@ -213,7 +212,7 @@ namespace Home.Models
                 {
                     total += valor;
                 }
-                
+
                 return total;
             }
         }

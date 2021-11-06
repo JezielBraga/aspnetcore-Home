@@ -10,6 +10,23 @@ namespace Home.Controllers
         ViewContas vc = new ViewContas();
         UsuarioService us = new UsuarioService();
         ContaService cs = new ContaService();
+        
+        [HttpPost]
+        public ViewContas Filtro(int usrId, DateTime dataVenc)
+        {
+            Conta c = new Conta();
+            c.UsuarioId = usrId;
+            c.Venc = dataVenc;
+
+            vc.TotSaldo = cs.TotSaldo(c.UsuarioId);
+            vc.TotReceita = cs.TotReceita(c);
+            vc.TotDespesas = cs.TotDespesas(c);
+            vc.LstContasR = cs.LstReceita(c);
+            vc.LstContasD = cs.LstDespesas();
+
+
+            return vc;
+        }
 
         public IActionResult Resumo()
         {
@@ -25,38 +42,29 @@ namespace Home.Controllers
             return View(vc);
         }
 
-        [HttpPost]
-        public ViewContas Filtro(int usrId, DateTime dataVenc)
-        {
-            Conta c = new Conta();
-            c.UsuarioId = usrId;
-            c.Venc = dataVenc;
 
-            vc.TotSaldo = cs.TotSaldo(usrId);
-            vc.TotReceita = cs.TotReceita(c);
-            vc.TotDespesas = cs.TotDespesas(c);
-
-            return vc;
-        }
-
-        public IActionResult Receita(int id)
+        public IActionResult Receita()
         {
             Sessao.ChecaStatus(this);
 
-            vc.LstContas = cs.LstReceita(id);
-            //Lista de Usuarios
+            Conta c = new Conta();
+
+            vc.LstUsuarios = us.Lista();
+            vc.LstContasR = cs.LstReceita(c);
 
             ViewBag.CadEdit = "Nova Conta";
 
             return View(vc);
         }
 
-        public IActionResult Despesas(int id)
+        public IActionResult Despesas()
         {
             Sessao.ChecaStatus(this);
 
-            vc.LstContas = cs.LstDespesas(id);
-            //Lista de Usuarios
+            Conta c = new Conta();
+
+            vc.LstUsuarios = us.Lista();
+            vc.LstContasD = cs.LstDespesas();
 
             ViewBag.CadEdit = "Nova Conta";
 
