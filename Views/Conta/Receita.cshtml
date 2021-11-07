@@ -45,13 +45,13 @@
                         @if (c.Quit == false)
                         {
                             <td class="col-6">Vence em: </td>
-                            <td class="col-6 text-right data">@c.Venc.ToShortDateString()</td>
+                            <td class="col-6 text-right">@c.Venc.ToShortDateString()</td>
                         }
 
                         else
                         {
                             <td class="col-6">Recebida em: </td>
-                            <td class="col-6 text-right data">@c.DataQuit.ToShortDateString()</td>
+                            <td class="col-6 text-right">@c.DataQuit.ToShortDateString()</td>
                         }
                     </tr>
                 }
